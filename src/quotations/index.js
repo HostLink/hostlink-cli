@@ -314,7 +314,8 @@ function register(program) {
   quotations
     .command('pdf <id>')
     .description('Get the PDF download link for a quotation')
-    .action(async (id) => {
+    .option('-s, --save [filename]', 'Download and save PDF to local file')
+    .action(async (id, options) => {
       const client = getClient();
       const query = gql`
         query {
@@ -341,8 +342,52 @@ function register(program) {
           console.error('No PDF link available for this quotation.');
           process.exit(1);
         }
-        console.log(`Quotation: [${q.quotation_id}] ${q.quotation_no ?? ''}`);
-        console.log(`PDF Link:  ${link}`);
+
+        if (options.save !== undefined) {
+          const https = require('https');
+          const http = require('http');
+          const fs = require('fs');
+          const path = require('path');
+
+          const filename = typeof options.save === 'string'
+            ? options.save
+            : `quotation-${q.quotation_no ?? id}.pdf`;
+
+          const filepath = path.resolve(filename);
+          const protocol = link.startsWith('https') ? https : http;
+
+          const token = config.get('token');
+          const urlObj = new URL(link);
+
+          const reqOptions = {
+            hostname: urlObj.hostname,
+            path: urlObj.pathname + urlObj.search,
+            headers: { Authorization: `Bearer ${token}` },
+          };
+
+          console.log(`Downloading to: ${filepath}`);
+
+          const file = fs.createWriteStream(filepath);
+          protocol.get(reqOptions, (res) => {
+            if (res.statusCode !== 200) {
+              console.error(`Download failed: HTTP ${res.statusCode}`);
+              fs.unlinkSync(filepath);
+              process.exit(1);
+            }
+            res.pipe(file);
+            file.on('finish', () => {
+              file.close();
+              console.log(`Saved: ${filepath}`);
+            });
+          }).on('error', (err) => {
+            fs.unlinkSync(filepath);
+            console.error(`Download error: ${err.message}`);
+            process.exit(1);
+          });
+        } else {
+          console.log(`Quotation: [${q.quotation_id}] ${q.quotation_no ?? ''}`);
+          console.log(`PDF Link:  ${link}`);
+        }
       } catch (err) {
         const message = err?.response?.errors?.[0]?.message ?? err.message;
         console.error(`Failed to fetch PDF link: ${message}`);
