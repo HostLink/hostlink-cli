@@ -20,6 +20,17 @@ hostlink set-token YOUR_TOKEN
 
 ## Commands
 
+### `hostlink me`
+
+Show the current logged-in user's profile.
+
+```bash
+hostlink me
+hostlink me --json
+```
+
+---
+
 ### `hostlink clients`
 
 Manage clients.

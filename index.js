@@ -6,6 +6,7 @@ const clients = require('./src/clients');
 const domains = require('./src/domains');
 const quotations = require('./src/quotations');
 const quotationItems = require('./src/quotation-items');
+const me = require('./src/me');
 
 const config = new Conf({ projectName: 'hostlink-cli' });
 
@@ -24,6 +25,7 @@ program
     console.log('Token saved.');
   });
 
+me.register(program);
 clients.register(program);
 domains.register(program);
 quotations.register(program);
