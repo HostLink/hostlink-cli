@@ -18,6 +18,24 @@ hostlink set-token YOUR_TOKEN
 
 ---
 
+## AI Agent Skills
+
+This repo ships Agent Skills (`SKILL.md` files) for every command — ready to use with GitHub Copilot, Cursor, and any MCP-compatible AI agent.
+
+```bash
+# Install all hostlink skills at once
+npx skills add https://github.com/HostLink/hostlink-cli
+
+# Or pick only what you need
+npx skills add https://github.com/HostLink/hostlink-cli/tree/main/skills/hostlink-me
+npx skills add https://github.com/HostLink/hostlink-cli/tree/main/skills/hostlink-clients
+npx skills add https://github.com/HostLink/hostlink-cli/tree/main/skills/hostlink-domains
+npx skills add https://github.com/HostLink/hostlink-cli/tree/main/skills/hostlink-quotations
+npx skills add https://github.com/HostLink/hostlink-cli/tree/main/skills/hostlink-quotation-items
+```
+
+---
+
 ## Commands
 
 ### `hostlink me`
