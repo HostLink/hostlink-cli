@@ -1,6 +1,11 @@
 # hostlink-cli
 
-CLI tool for the [HostLink](https://www.hostlink.com.hk) platform, powered by the [isapi.hostlink.com.hk](https://isapi.hostlink.com.hk/) GraphQL API.
+**CLI for the [HostLink](https://www.hostlink.com.hk) platform — built for humans and AI agents.**
+
+<p>
+  <a href="https://www.npmjs.com/package/@hostlink/hostlink-cli"><img src="https://img.shields.io/npm/v/@hostlink/hostlink-cli" alt="npm version"></a>
+  <a href="https://github.com/HostLink/hostlink-cli/blob/main/LICENSE"><img src="https://img.shields.io/github/license/HostLink/hostlink-cli" alt="license"></a>
+</p>
 
 ## Installation
 
@@ -8,9 +13,9 @@ CLI tool for the [HostLink](https://www.hostlink.com.hk) platform, powered by th
 npm install -g @hostlink/hostlink-cli
 ```
 
-## Getting Started
+## Authentication
 
-Generate your API token from the HostLink portal, then save it:
+Obtain your access token from the HostLink portal, then save it:
 
 ```bash
 hostlink set-token YOUR_TOKEN
