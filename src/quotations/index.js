@@ -310,6 +310,45 @@ function register(program) {
         process.exit(1);
       }
     });
+
+  quotations
+    .command('pdf <id>')
+    .description('Get the PDF download link for a quotation')
+    .action(async (id) => {
+      const client = getClient();
+      const query = gql`
+        query {
+          listQuotation(filters: { quotation_id: ${parseInt(id)} }) {
+            data {
+              quotation_id
+              quotation_no
+              pdfLink
+              downloadUrl
+            }
+          }
+        }
+      `;
+      try {
+        const data = await client.request(query);
+        const list = data?.listQuotation?.data ?? [];
+        if (list.length === 0) {
+          console.error(`Quotation [${id}] not found.`);
+          process.exit(1);
+        }
+        const q = list[0];
+        const link = q.pdfLink || q.downloadUrl;
+        if (!link) {
+          console.error('No PDF link available for this quotation.');
+          process.exit(1);
+        }
+        console.log(`Quotation: [${q.quotation_id}] ${q.quotation_no ?? ''}`);
+        console.log(`PDF Link:  ${link}`);
+      } catch (err) {
+        const message = err?.response?.errors?.[0]?.message ?? err.message;
+        console.error(`Failed to fetch PDF link: ${message}`);
+        process.exit(1);
+      }
+    });
 }
 
 module.exports = { register };
