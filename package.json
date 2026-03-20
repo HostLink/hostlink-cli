@@ -1,6 +1,6 @@
 {
   "name": "@hostlink/hostlink-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI tool for the HostLink platform",
   "main": "index.js",
   "bin": {
