@@ -65358,6 +65358,51 @@ var require_leave = __commonJS({
   }
 });
 
+// package.json
+var require_package = __commonJS({
+  "package.json"(exports2, module2) {
+    module2.exports = {
+      name: "@hostlink/hostlink-cli",
+      version: "1.0.2",
+      description: "CLI tool for the HostLink platform",
+      main: "index.js",
+      bin: {
+        hostlink: "dist/bundle.js"
+      },
+      files: [
+        "dist/bundle.js"
+      ],
+      publishConfig: {
+        access: "public"
+      },
+      scripts: {
+        build: "esbuild index.js --bundle --platform=node --outfile=dist/bundle.js",
+        prepublishOnly: "npm run build"
+      },
+      keywords: [
+        "hostlink",
+        "cli"
+      ],
+      author: "HostLink",
+      license: "MIT",
+      repository: {
+        type: "git",
+        url: "https://github.com/HostLink/hostlink-cli"
+      },
+      type: "commonjs",
+      dependencies: {
+        commander: "^14.0.3",
+        conf: "^10.2.0",
+        "graphql-request": "^7.4.0",
+        inquirer: "^8.2.6"
+      },
+      devDependencies: {
+        esbuild: "^0.27.4"
+      }
+    };
+  }
+});
+
 // index.js
 var { Command } = require_commander();
 var Conf = require_source();
@@ -65369,7 +65414,7 @@ var me = require_me();
 var leave = require_leave();
 var config = new Conf({ projectName: "hostlink-cli" });
 var program = new Command();
-program.name("hostlink").description("HostLink CLI").version("1.0.0");
+program.name("hostlink").description("HostLink CLI").version(require_package().version);
 program.command("set-token <token>").description("Save your access token").action((token) => {
   config.set("token", token);
   console.log("Token saved.");

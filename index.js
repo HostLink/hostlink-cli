@@ -16,7 +16,7 @@ const program = new Command();
 program
   .name('hostlink')
   .description('HostLink CLI')
-  .version('1.0.0');
+  .version(require('./package.json').version);
 
 program
   .command('set-token <token>')
