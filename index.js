@@ -8,6 +8,7 @@ const quotations = require('./src/quotations');
 const quotationItems = require('./src/quotation-items');
 const me = require('./src/me');
 const leave = require('./src/leave');
+const invoices = require('./src/invoices');
 
 const config = new Conf({ projectName: 'hostlink-cli' });
 
@@ -32,5 +33,6 @@ domains.register(program);
 quotations.register(program);
 quotationItems.register(program);
 leave.register(program);
+invoices.register(program);
 
 program.parse(process.argv);
