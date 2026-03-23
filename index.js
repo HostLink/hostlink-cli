@@ -9,6 +9,7 @@ const quotationItems = require('./src/quotation-items');
 const me = require('./src/me');
 const leave = require('./src/leave');
 const invoices = require('./src/invoices');
+const invoiceItems = require('./src/invoice-items');
 
 const config = new Conf({ projectName: 'hostlink-cli' });
 
@@ -34,5 +35,6 @@ quotations.register(program);
 quotationItems.register(program);
 leave.register(program);
 invoices.register(program);
+invoiceItems.register(program);
 
 program.parse(process.argv);
