@@ -138,7 +138,6 @@ hostlink invoice-items delete 55
 | `description` | Item description (computed from clientService) |
 | `unit_price` | Unit price |
 | `qty` | Quantity |
-| `unit_month` | Number of months |
 | `free_month` | Free months |
 | `discount` | Discount percentage |
 | `subtotal` | Subtotal before discount |
@@ -147,3 +146,5 @@ hostlink invoice-items delete 55
 | `remark` | Remark |
 | `clientservice_id` | Linked client service ID |
 | `quotation_id` | Linked quotation ID |
+
+> **Note:** The `list` command returns `free_month`. Use the `get` command to retrieve both `unit_month` and `free_month`.

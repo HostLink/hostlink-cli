@@ -31530,6 +31530,7 @@ var require_clients = __commonJS({
     }
     var CLIENT_FIELDS = `
   client_id
+  client_no
   client_name
   client_email
   client_phone
@@ -31563,7 +31564,7 @@ var require_clients = __commonJS({
             console.log("No clients found.");
           } else {
             list.forEach(
-              (c) => console.log(`[${c.client_id}] ${c.client_name} | ${c.client_email ?? "-"} | ${c.client_phone ?? "-"} | ${c.status ?? "-"}`)
+              (c) => console.log(`[${c.client_id}] ${c.client_no ? `#${c.client_no} ` : ""}${c.client_name} | ${c.client_email ?? "-"} | ${c.client_phone ?? "-"} | ${c.status ?? "-"}`)
             );
             console.log(`
 Total: ${total}`);

@@ -17,6 +17,7 @@ function getClient() {
 
 const CLIENT_FIELDS = `
   client_id
+  client_no
   client_name
   client_email
   client_phone
@@ -64,7 +65,7 @@ function register(program) {
           console.log('No clients found.');
         } else {
           list.forEach(c =>
-            console.log(`[${c.client_id}] ${c.client_name} | ${c.client_email ?? '-'} | ${c.client_phone ?? '-'} | ${c.status ?? '-'}`)
+            console.log(`[${c.client_id}] ${c.client_no ? `#${c.client_no} ` : ''}${c.client_name} | ${c.client_email ?? '-'} | ${c.client_phone ?? '-'} | ${c.status ?? '-'}`)
           );
           console.log(`\nTotal: ${total}`);
         }
