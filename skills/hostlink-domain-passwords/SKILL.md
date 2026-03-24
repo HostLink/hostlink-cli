@@ -121,7 +121,7 @@ hostlink domain-passwords delete 10
 
 | Field | Description |
 |-------|-------------|
-| `domain_password_id` | Password entry ID |
+| `domainpassword_id` | Password entry ID |
 | `domain_id` | Parent domain ID |
 | `name` | Name / label |
 | `username` | Username |

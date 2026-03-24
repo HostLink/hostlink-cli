@@ -31965,7 +31965,7 @@ var require_domain_passwords = __commonJS({
       });
     }
     var DOMAIN_PASSWORD_FIELDS = `
-  domain_password_id
+  domainpassword_id
   domain_id
   name
   username
@@ -31996,7 +31996,7 @@ var require_domain_passwords = __commonJS({
             console.log("No domain passwords found.");
           } else {
             list.forEach(
-              (p) => console.log(`[${p.domain_password_id}] ${p.name ?? "-"} | ${p.username ?? "-"} | ${p.host ?? "-"}${p.port ? `:${p.port}` : ""}${p.remark ? ` | ${p.remark}` : ""}`)
+              (p) => console.log(`[${p.domainpassword_id}] ${p.name ?? "-"} | ${p.username ?? "-"} | ${p.host ?? "-"}${p.port ? `:${p.port}` : ""}${p.remark ? ` | ${p.remark}` : ""}`)
             );
             console.log(`
 Total: ${list.length}`);
@@ -32011,7 +32011,7 @@ Total: ${list.length}`);
         const client = getClient();
         const query = gql`
         query {
-          listDomainPassword(filters: { domain_password_id: ${parseInt(id)} }) {
+          listDomainPassword(filters: { domainpassword_id: ${parseInt(id)} }) {
             data {
               ${DOMAIN_PASSWORD_FIELDS}
             }
@@ -32029,7 +32029,7 @@ Total: ${list.length}`);
           if (options.json) {
             console.log(JSON.stringify(p, null, 2));
           } else {
-            console.log(`ID:       ${p.domain_password_id}`);
+            console.log(`ID:       ${p.domainpassword_id}`);
             console.log(`Domain ID:${p.domain_id}`);
             console.log(`Name:     ${p.name ?? "-"}`);
             console.log(`Username: ${p.username ?? "-"}`);

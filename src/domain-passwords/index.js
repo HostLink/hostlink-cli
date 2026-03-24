@@ -16,7 +16,7 @@ function getClient() {
 }
 
 const DOMAIN_PASSWORD_FIELDS = `
-  domain_password_id
+  domainpassword_id
   domain_id
   name
   username
@@ -53,7 +53,7 @@ function register(program) {
           console.log('No domain passwords found.');
         } else {
           list.forEach(p =>
-            console.log(`[${p.domain_password_id}] ${p.name ?? '-'} | ${p.username ?? '-'} | ${p.host ?? '-'}${p.port ? `:${p.port}` : ''}${p.remark ? ` | ${p.remark}` : ''}`)
+            console.log(`[${p.domainpassword_id}] ${p.name ?? '-'} | ${p.username ?? '-'} | ${p.host ?? '-'}${p.port ? `:${p.port}` : ''}${p.remark ? ` | ${p.remark}` : ''}`)
           );
           console.log(`\nTotal: ${list.length}`);
         }
@@ -72,7 +72,7 @@ function register(program) {
       const client = getClient();
       const query = gql`
         query {
-          listDomainPassword(filters: { domain_password_id: ${parseInt(id)} }) {
+          listDomainPassword(filters: { domainpassword_id: ${parseInt(id)} }) {
             data {
               ${DOMAIN_PASSWORD_FIELDS}
             }
@@ -90,7 +90,7 @@ function register(program) {
         if (options.json) {
           console.log(JSON.stringify(p, null, 2));
         } else {
-          console.log(`ID:       ${p.domain_password_id}`);
+          console.log(`ID:       ${p.domainpassword_id}`);
           console.log(`Domain ID:${p.domain_id}`);
           console.log(`Name:     ${p.name ?? '-'}`);
           console.log(`Username: ${p.username ?? '-'}`);
