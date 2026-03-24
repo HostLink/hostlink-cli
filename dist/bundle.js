@@ -31743,7 +31743,7 @@ var require_domains = __commonJS({
         const client = getClient();
         const filterParts = [];
         if (options.client) filterParts.push(`client_id: ${parseInt(options.client)}`);
-        if (options.search) filterParts.push(`domain_name: ${JSON.stringify(options.search)}`);
+        if (options.search) filterParts.push(`domain_name: { contains: ${JSON.stringify(options.search)} }`);
         const filters = filterParts.length ? `filters: { ${filterParts.join(", ")} }` : "";
         const pagination = `limit: ${parseInt(options.limit)}, offset: ${parseInt(options.offset)}`;
         const query = gql`
