@@ -216,7 +216,6 @@ function register(program) {
     .option('--domain-type <n>', 'Domain type')
     .option('--remark <value>', 'Remark')
     .option('--server-id <n>', 'Server ID')
-    .option('--status <n>', 'Status')
     .action(async (id, options) => {
       const client = getClient();
 
@@ -233,7 +232,6 @@ function register(program) {
         domainType: ['domain_type', v => parseInt(v)],
         remark: ['remark', v => JSON.stringify(v)],
         serverId: ['server_id', v => parseInt(v)],
-        status: ['status', v => parseInt(v)],
       };
 
       const fields = Object.entries(fieldMap)

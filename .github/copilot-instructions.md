@@ -74,15 +74,10 @@ Type `3` uses `start_time` (HH:MM) + `hour` (0.5–8). All others use `from_time
 
 ### After code changes
 After making any code changes, always:
-1. Run `npm run build` to bundle the CLI
-2. Commit the changes with a descriptive message
-3. Push to GitHub
+Run `npm run build` to bundle the CLI
 
 ```bash
 npm run build
-git add .
-git commit -m "<type>: <description>"
-git push
 ```
 
 ### SKILL.md files

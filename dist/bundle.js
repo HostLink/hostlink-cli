@@ -31881,7 +31881,7 @@ Total: ${total}`);
           process.exit(1);
         }
       });
-      domains2.command("update <id>").description("Update a domain by ID").option("--domain-name <value>", "Domain name").option("--client-id <id>", "Client ID").option("--expiry-date <date>", "Expiry date").option("--creation-date <date>", "Creation date").option("--registrar <value>", "Registrar").option("--primary-dns <value>", "Primary DNS").option("--secondary-dns <value>", "Secondary DNS").option("--domain-user-id <value>", "Domain user ID").option("--domain-password <value>", "Domain password").option("--domain-type <n>", "Domain type").option("--remark <value>", "Remark").option("--server-id <n>", "Server ID").option("--status <n>", "Status").action(async (id, options) => {
+      domains2.command("update <id>").description("Update a domain by ID").option("--domain-name <value>", "Domain name").option("--client-id <id>", "Client ID").option("--expiry-date <date>", "Expiry date").option("--creation-date <date>", "Creation date").option("--registrar <value>", "Registrar").option("--primary-dns <value>", "Primary DNS").option("--secondary-dns <value>", "Secondary DNS").option("--domain-user-id <value>", "Domain user ID").option("--domain-password <value>", "Domain password").option("--domain-type <n>", "Domain type").option("--remark <value>", "Remark").option("--server-id <n>", "Server ID").action(async (id, options) => {
         const client = getClient();
         const fieldMap = {
           domainName: ["domain_name", (v) => JSON.stringify(v)],
@@ -31895,8 +31895,7 @@ Total: ${total}`);
           domainPassword: ["domain_password", (v) => JSON.stringify(v)],
           domainType: ["domain_type", (v) => parseInt(v)],
           remark: ["remark", (v) => JSON.stringify(v)],
-          serverId: ["server_id", (v) => parseInt(v)],
-          status: ["status", (v) => parseInt(v)]
+          serverId: ["server_id", (v) => parseInt(v)]
         };
         const fields = Object.entries(fieldMap).filter(([optKey]) => options[optKey] != null).map(([optKey, [gqlKey, transform]]) => `${gqlKey}: ${transform(options[optKey])}`);
         if (fields.length === 0) {
