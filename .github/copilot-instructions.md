@@ -72,6 +72,19 @@ All read commands (`list`, `get`, `me`) support `--json` to output raw JSON. Mut
 
 Type `3` uses `start_time` (HH:MM) + `hour` (0.5–8). All others use `from_time`/`to_time` (0=AM, 1=PM) + date range.
 
+### After code changes
+After making any code changes, always:
+1. Run `npm run build` to bundle the CLI
+2. Commit the changes with a descriptive message
+3. Push to GitHub
+
+```bash
+npm run build
+git add .
+git commit -m "<type>: <description>"
+git push
+```
+
 ### SKILL.md files
 Each `skills/<name>/SKILL.md` documents the corresponding command for AI agents. When adding or changing a command's behaviour, update the matching SKILL.md. The frontmatter uses the `openclaw` schema with `category: "hostlink"` and `requires.bins: ["hostlink"]`.
 
