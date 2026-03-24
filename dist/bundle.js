@@ -31537,14 +31537,18 @@ var require_clients = __commonJS({
   client_city
   status
   join_date
-  billing_name
-  billing_addr1
-  billing_addr2
-  billing_addr3
-  billing_city
-  billing_phone
-  billing_fax
-  billing_email
+  bill_title
+  bill_first_name
+  bill_last_name
+  bill_department
+  bill_name
+  bill_addr1
+  bill_addr2
+  bill_addr3
+  bill_city
+  bill_phone
+  bill_fax
+  bill_email
 `;
     function register(program2) {
       const clients2 = program2.command("clients").description("Manage clients");
