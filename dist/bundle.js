@@ -31540,13 +31540,20 @@ var require_clients = __commonJS({
 `;
     function register(program2) {
       const clients2 = program2.command("clients").description("Manage clients");
-      clients2.command("list").description("List clients").option("-l, --limit <n>", "Max number of clients to return", "50").option("-o, --offset <n>", "Number of clients to skip", "0").option("-s, --search <name>", "Filter by client name").option("--json", "Output as JSON").action(async (options) => {
+      clients2.command("list").description("List clients").option("-l, --limit <n>", "Max number of clients to return", "50").option("-o, --offset <n>", "Number of clients to skip", "0").option("-s, --search <name>", "Filter by client name").option("--sort <field>", "Sort by field: client_no, client_no:desc, client_name, client_name:desc, join_date, join_date:desc", "client_no").option("--json", "Output as JSON").action(async (options) => {
         const client = getClient();
-        const filters = options.search ? `filters: { client_name: { contains: ${JSON.stringify(options.search)} } }` : "";
+        const VALID_SORTS = ["client_no", "client_no:desc", "client_name", "client_name:desc", "join_date", "join_date:desc"];
+        if (!VALID_SORTS.includes(options.sort)) {
+          console.error(`Invalid sort value. Must be one of: ${VALID_SORTS.join(", ")}`);
+          process.exit(1);
+        }
+        const args = [];
+        if (options.search) args.push(`filters: { client_name: { contains: ${JSON.stringify(options.search)} } }`);
+        args.push(`sort: ${JSON.stringify(options.sort)}`);
         const pagination = `limit: ${parseInt(options.limit)}, offset: ${parseInt(options.offset)}`;
         const query = gql`
         query {
-          listClient${filters ? `(${filters})` : ""} {
+          listClient(${args.join(", ")}) {
             meta { total }
             data(${pagination}) {
               ${CLIENT_FIELDS}
