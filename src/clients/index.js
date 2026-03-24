@@ -24,6 +24,14 @@ const CLIENT_FIELDS = `
   client_city
   status
   join_date
+  billing_name
+  billing_addr1
+  billing_addr2
+  billing_addr3
+  billing_city
+  billing_phone
+  billing_fax
+  billing_email
 `;
 
 function register(program) {
