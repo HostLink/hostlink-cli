@@ -40,14 +40,20 @@ hostlink clients list [flags]
 | `-s, --search <name>` | Filter by client name (contains match) | — |
 | `-l, --limit <n>` | Max records to return | `50` |
 | `-o, --offset <n>` | Records to skip (pagination) | `0` |
+| `--sort <field>` | Sort order (see below) | `client_no` |
 | `--json` | Output as JSON | — |
 
+**Valid sort values:** `client_no`, `client_no:desc`, `client_name`, `client_name:desc`, `join_date`, `join_date:desc`
+
 ```bash
-# List all clients
+# List all clients (sorted by client_no asc by default)
 hostlink clients list
 
 # Search by name
 hostlink clients list --search "HostLink"
+
+# Sort by name descending
+hostlink clients list --sort client_name:desc
 
 # Paginate
 hostlink clients list --limit 20 --offset 40
@@ -55,6 +61,33 @@ hostlink clients list --limit 20 --offset 40
 # JSON output
 hostlink clients list --json
 ```
+
+### Returned fields
+
+| Field | Description |
+|-------|-------------|
+| `client_id` | Client ID |
+| `client_no` | Client number |
+| `client_name` | Client name |
+| `client_email` | Email |
+| `client_phone` | Phone |
+| `client_city` | City |
+| `status` | Status |
+| `join_date` | Join date |
+| `bill_title` | Billing contact title |
+| `bill_first_name` | Billing contact first name |
+| `bill_last_name` | Billing contact last name |
+| `bill_department` | Billing department |
+| `bill_name` | Billing name |
+| `bill_addr1` | Billing address line 1 |
+| `bill_addr2` | Billing address line 2 |
+| `bill_addr3` | Billing address line 3 |
+| `bill_city` | Billing city |
+| `bill_phone` | Billing phone |
+| `bill_fax` | Billing fax |
+| `bill_email` | Billing email |
+
+> **Note:** Billing fields (`bill_*`) are used when creating invoices.
 
 ## get
 
