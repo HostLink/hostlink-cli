@@ -41,6 +41,7 @@ function register(program) {
             meta { total }
             data(${pagination}) {
               domain_id
+              domain_no
               domain_name
               client_id
               expiry_date
@@ -63,7 +64,7 @@ function register(program) {
           console.log('No domains found.');
         } else {
           list.forEach(d =>
-            console.log(`[${d.domain_id}] ${d.domain_name} | client:${d.client_id} | expires:${d.expiry_date ?? '-'} | ${d.registrar ?? '-'} | ${d.status ?? '-'}`)
+            console.log(`[${d.domain_id}] ${d.domain_no ? `#${d.domain_no} ` : ''}${d.domain_name} | client:${d.client_id} | expires:${d.expiry_date ?? '-'} | ${d.registrar ?? '-'} | ${d.status ?? '-'}`)
           );
           console.log(`\nTotal: ${total}`);
         }

@@ -31752,6 +31752,7 @@ var require_domains = __commonJS({
             meta { total }
             data(${pagination}) {
               domain_id
+              domain_no
               domain_name
               client_id
               expiry_date
@@ -31773,7 +31774,7 @@ var require_domains = __commonJS({
             console.log("No domains found.");
           } else {
             list.forEach(
-              (d) => console.log(`[${d.domain_id}] ${d.domain_name} | client:${d.client_id} | expires:${d.expiry_date ?? "-"} | ${d.registrar ?? "-"} | ${d.status ?? "-"}`)
+              (d) => console.log(`[${d.domain_id}] ${d.domain_no ? `#${d.domain_no} ` : ""}${d.domain_name} | client:${d.client_id} | expires:${d.expiry_date ?? "-"} | ${d.registrar ?? "-"} | ${d.status ?? "-"}`)
             );
             console.log(`
 Total: ${total}`);
