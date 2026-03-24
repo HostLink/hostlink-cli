@@ -4,6 +4,7 @@ const { Command } = require('commander');
 const Conf = require('conf');
 const clients = require('./src/clients');
 const domains = require('./src/domains');
+const domainPasswords = require('./src/domain-passwords');
 const quotations = require('./src/quotations');
 const quotationItems = require('./src/quotation-items');
 const me = require('./src/me');
@@ -32,6 +33,7 @@ program
 me.register(program);
 clients.register(program);
 domains.register(program);
+domainPasswords.register(program);
 quotations.register(program);
 quotationItems.register(program);
 leave.register(program);
