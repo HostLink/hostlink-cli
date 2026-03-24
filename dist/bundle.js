@@ -65710,7 +65710,7 @@ var require_invoice_items = __commonJS({
               description
               unit_price
               qty
-              unit_month
+              free_month
               discount
               subtotal
               total

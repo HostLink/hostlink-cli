@@ -37,7 +37,7 @@ function register(program) {
               description
               unit_price
               qty
-              unit_month
+              free_month
               discount
               subtotal
               total
