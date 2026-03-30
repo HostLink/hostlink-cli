@@ -208,30 +208,16 @@ function register(program) {
       const submitData = await promptLeaveRequest();
 
       const mutation = gql`
-        mutation AddLeave($data: AddStaffLeaveRequestInput!) {
-          addStaffLeaveRequest(data: $data) {
-            leave_request_id
-            type
-            from_date
-            to_date
-            status
-            remark
-          }
+        mutation AddLeave($data: CreateStaffLeaveInput!) {
+          addStaffLeaveRequest(data: $data)
         }
       `;
 
       try {
         const result = await client.request(mutation, { data: submitData });
-        const req = result?.addStaffLeaveRequest;
+        const leaveRequestId = result?.addStaffLeaveRequest;
         console.log('\n✅ Leave request submitted successfully!');
-        if (req) {
-          console.log(`   ID:        ${req.leave_request_id}`);
-          console.log(`   Type:      ${LEAVE_TYPE_LABELS[req.type] ?? req.type}`);
-          console.log(`   From:      ${req.from_date}`);
-          if (req.to_date) console.log(`   To:        ${req.to_date}`);
-          console.log(`   Status:    ${req.status}`);
-          if (req.remark) console.log(`   Remark:    ${req.remark}`);
-        }
+        console.log(`   ID:        ${leaveRequestId}`);
       } catch (err) {
         const message = err?.response?.errors?.[0]?.message ?? err.message;
         console.error(`\n❌ Failed to submit leave request: ${message}`);
