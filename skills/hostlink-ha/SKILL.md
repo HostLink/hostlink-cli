@@ -20,7 +20,7 @@ Interact with Home Assistant via the HostLink API.
 hostlink ha <command> [args] [flags]
 ```
 
-> **NOTE:** The `ha` query and `haStateUpdate` mutation are not marked `#[Logged]` on the server side, so behaviour depends on the API's global auth setup. If you get a 401/403, your token may not have access.
+> **NOTE:** The `ha` query and `haStateUpdate` mutation both require a logged-in user. If you get a 401/403, your token may not have access or may be expired.
 
 ## Commands
 
