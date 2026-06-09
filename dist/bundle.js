@@ -66709,12 +66709,103 @@ Total: ${total}`);
   }
 });
 
+// src/iot/index.js
+var require_iot = __commonJS({
+  "src/iot/index.js"(exports2, module2) {
+    var { GraphQLClient, gql } = require_main();
+    var Conf2 = require_source();
+    var config2 = new Conf2({ projectName: "hostlink-cli" });
+    var ENDPOINT = "https://isapi.hostlink.com.hk/";
+    function getClient() {
+      const token = config2.get("token");
+      if (!token) {
+        console.error("No token found. Run `hostlink set-token <token>` first.");
+        process.exit(1);
+      }
+      return new GraphQLClient(ENDPOINT, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    }
+    function register(program2) {
+      const iot2 = program2.command("iot").description("Interact with office IoT devices (thermostat, sensors)");
+      iot2.command("info").description("Get current IoT info (thermostat + feels-like temperature)").option("--json", "Output as JSON").action(async (options) => {
+        const client = getClient();
+        const query = gql`
+        query {
+          iotInfo
+        }
+      `;
+        try {
+          const data = await client.request(query);
+          const info = data?.iotInfo ?? [];
+          if (options.json) {
+            console.log(JSON.stringify(info, null, 2));
+          } else {
+            if (info.length === 0) {
+              console.log("No IoT info returned.");
+              return;
+            }
+            info.forEach((entry, i) => {
+              console.log(`--- Device [${i + 1}] ---`);
+              if (entry && typeof entry === "object") {
+                Object.entries(entry).forEach(([k, v]) => {
+                  const value = typeof v === "object" ? JSON.stringify(v) : v;
+                  console.log(`  ${k}: ${value}`);
+                });
+              } else {
+                console.log(`  ${entry}`);
+              }
+            });
+          }
+        } catch (err) {
+          const message = err?.response?.errors?.[0]?.message ?? err.message;
+          console.error(`Failed to fetch IoT info: ${message}`);
+          console.error("(The office IoT endpoint may not be reachable from the API server.)");
+          process.exit(1);
+        }
+      });
+      iot2.command("set-temperature <temp>").description("Set the thermostat target temperature (e.g. 24 or 22.5)").action(async (temp) => {
+        const temperature = parseFloat(temp);
+        if (isNaN(temperature)) {
+          console.error(`Invalid temperature: ${temp}`);
+          process.exit(1);
+        }
+        if (temperature < 10 || temperature > 35) {
+          console.error("Temperature must be between 10 and 35 \xB0C.");
+          process.exit(1);
+        }
+        const client = getClient();
+        const mutation = gql`
+        mutation {
+          updateIotTemperature(temperature: ${temperature})
+        }
+      `;
+        try {
+          const data = await client.request(mutation);
+          if (data?.updateIotTemperature) {
+            console.log(`\u2705 Set thermostat target to ${temperature} \xB0C.`);
+          } else {
+            console.error("Update failed (IoT device did not return 200).");
+            process.exit(1);
+          }
+        } catch (err) {
+          const message = err?.response?.errors?.[0]?.message ?? err.message;
+          console.error(`Failed to update temperature: ${message}`);
+          console.error("(The office IoT endpoint may not be reachable from the API server.)");
+          process.exit(1);
+        }
+      });
+    }
+    module2.exports = { register };
+  }
+});
+
 // package.json
 var require_package = __commonJS({
   "package.json"(exports2, module2) {
     module2.exports = {
       name: "@hostlink/hostlink-cli",
-      version: "1.0.5",
+      version: "1.0.6",
       description: "CLI tool for the HostLink platform",
       main: "index.js",
       bin: {
@@ -66768,6 +66859,7 @@ var invoices = require_invoices();
 var invoiceItems = require_invoice_items();
 var clientServices = require_client_services();
 var events = require_events2();
+var iot = require_iot();
 var config = new Conf({ projectName: "hostlink-cli" });
 var program = new Command();
 program.name("hostlink").description("HostLink CLI").version(require_package().version);
@@ -66786,6 +66878,7 @@ invoices.register(program);
 invoiceItems.register(program);
 clientServices.register(program);
 events.register(program);
+iot.register(program);
 program.parse(process.argv);
 /*! Bundled license information:
 

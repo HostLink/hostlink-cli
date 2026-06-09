@@ -13,6 +13,7 @@ const invoices = require('./src/invoices');
 const invoiceItems = require('./src/invoice-items');
 const clientServices = require('./src/client-services');
 const events = require('./src/events');
+const iot = require('./src/iot');
 
 const config = new Conf({ projectName: 'hostlink-cli' });
 
@@ -42,5 +43,6 @@ invoices.register(program);
 invoiceItems.register(program);
 clientServices.register(program);
 events.register(program);
+iot.register(program);
 
 program.parse(process.argv);
