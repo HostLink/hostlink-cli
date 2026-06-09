@@ -66939,7 +66939,7 @@ Total: ${filtered.length}`);
         const client = getClient();
         const mutation = gql`
         mutation {
-          haStateUpdate(entityId: ${JSON.stringify(entityId)}, state: ${JSON.stringify(normalized)})
+          haStateUpdate(entity_id: ${JSON.stringify(entityId)}, state: ${JSON.stringify(normalized)})
         }
       `;
         try {
