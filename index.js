@@ -12,6 +12,7 @@ const leave = require('./src/leave');
 const invoices = require('./src/invoices');
 const invoiceItems = require('./src/invoice-items');
 const clientServices = require('./src/client-services');
+const events = require('./src/events');
 
 const config = new Conf({ projectName: 'hostlink-cli' });
 
@@ -40,5 +41,6 @@ leave.register(program);
 invoices.register(program);
 invoiceItems.register(program);
 clientServices.register(program);
+events.register(program);
 
 program.parse(process.argv);
